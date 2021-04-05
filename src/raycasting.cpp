@@ -5,12 +5,17 @@
 #include <cmath>
 #define PI 3.14159265
 
-/*TODO: In future, Object is Object wih it's owen draw function
-        Painter only call these functions
- */
+/*TODO: */
 
 int draw_map(Painter& canvas)
 {
+    Painter test(100, 100);
+    test.set_brush(255,0,0);
+    //test.set_brush(0,0,0);
+    test.create_rectangle(100, 100, 0, 0);
+    //test.create_rectangle(5, 5, 40, 5);
+    test.render_imageobj("test.ppm");
+    
     canvas.set_brush(100,180,120);
     canvas.draw_rectangle(5,5,40,5);
     canvas.set_brush(100,190,120);

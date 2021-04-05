@@ -6,8 +6,6 @@ Painter::Painter(size_t width, size_t height)
     pixels.resize(height, std::vector<RGB>(width));
 }
 
-
-
 Painter::~Painter(){}
 
 Geometry Painter::geometry() const
@@ -54,6 +52,41 @@ int Painter::render_image(std::string&& filename)
 
     return 0;
 }
+
+int Painter::render_imageobj(std::string&& filename)
+{
+    std::ofstream ofs(filename);
+    
+    std::stringstream title;
+    title << "P3\n" << this->gm.width() << " " << this->gm.height() << "\n" << "255\n";
+    ofs << title.str(); 
+    for(Object obj : objects)
+    {
+        obj.paint(ofs, rgb);
+    }
+    ofs.close();
+
+    return 0;
+}
+
+Object Painter::create_rectangle(int width, int height, int xpos, int ypos)
+{
+    int offset_by_pos = xpos * ypos;
+    int offset_by_size = width * height;
+    Object rect(width, height);
+
+    for(int y = ypos; y < ypos+height; y++)
+    {
+        for(int x = xpos; x < xpos+width; x++)
+        {
+            rect.add_point(Point(x, y));
+        }
+    }
+    objects.push_back(rect);
+ 
+    return rect;
+}
+
 
 
 Object Painter::draw_rectangle(int width, int height, int xpos, int ypos)

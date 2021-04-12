@@ -13,11 +13,10 @@ class Painter
         Object create_rectangle(int width, int height, int xpos, int ypos, RGB rgb);
         int render_imagePPM(std::string&& filename);
         Geometry geometry() const;
-        
         ~Painter();
     private:
         const Geometry gm;
+        Rect parent;
         std::vector<Object> objects;
-        std::vector<std::vector<RGB>> pixels;
     protected:
 };

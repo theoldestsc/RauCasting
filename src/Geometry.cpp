@@ -29,7 +29,8 @@ int Geometry::y() const
 
 std::ostream& operator << (std::ostream& out, const Geometry &geometry)
 {
-    out << geometry.w << " " << "x" << " " << geometry.h;
+    out << "(" << geometry.xpos << "," << geometry.ypos << ") " 
+        << geometry.w << " " << "x" << " " << geometry.h;
     return out;
 }
 

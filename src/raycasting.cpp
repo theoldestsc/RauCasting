@@ -9,11 +9,11 @@
 
 int draw_map(Painter& canvas)
 {
-    Painter test(100, 100);
+    Painter test(200, 150);
     //test.set_brush(0,255,0);
     //test.set_brush(0,0,0);
-    test.create_rectangle(100, 100, 0, 0, RGB(255, 0, 0));
-    test.create_rectangle(50, 50, 0, 0 ,  RGB(0, 0, 255));
+    test.create_rectangle(100, 100, 50, 20, RGB(255, 0, 0));
+    test.create_rectangle(50, 50, 0, 0 , RGB(0, 0, 255));
     
     test.render_imagePPM("test.ppm");
     

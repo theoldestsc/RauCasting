@@ -1,9 +1,10 @@
 #include "../headers/Painter.h"
 
 Painter::Painter(size_t width, size_t height)
-            :gm(width, height, 0, 0)
+            :gm(width, height, 0, 0), parent(width, height, 0, 0, RGB(0, 0, 0))
 {
-    pixels.resize(height, std::vector<RGB>(width));
+    parent.shape();
+    objects.push_back(parent);
 }
 
 Painter::~Painter(){}
@@ -13,18 +14,19 @@ Geometry Painter::geometry() const
     return gm.geometry();
 }
 
-
-
 int Painter::render_imagePPM(std::string&& filename)
 {
     std::ofstream ofs(filename);
     
     std::stringstream title;
     title << "P3\n" << this->gm.width() << " " << this->gm.height() << "\n" << "255\n";
-    ofs << title.str(); 
+    ofs << title.str();
+    
+    size_t len = title.str().length();
     for(Object obj : objects)
     {
-        obj.paint(ofs, title.str().length());
+        ofs.seekp(len);
+        obj.paint(ofs, parent);
     }
     ofs.close();
 

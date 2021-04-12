@@ -1,9 +1,9 @@
 #include "../headers/Object.h"
 
-Object::Object(size_t width, size_t height)
-                :geometry(width, height)
+Object::Object(size_t width, size_t height, int xpos, int ypos, RGB rgb)
+            :geometry(width, height, xpos, ypos), rgb(rgb)
 {
-    points.resize(width*height, Point());
+    points.reserve(width*height);
 }
 
 bool Object::is_collide(int x, int y) const
@@ -16,13 +16,13 @@ bool Object::is_collide(int x, int y) const
     return false;
 }
 
-void Object::paint(std::ofstream& out, RGB rgb)
+void Object::paint(std::ofstream& out, size_t title)
 {
     out.seekp(0, out.end);
-    int length = out.tellp();
+    //int length = 15;//out.tellp();
     for(Point p : points)
     {
-        out.seekp(length+12*(p.xpos+p.ypos*100));//TODO: width
+        out.seekp(title+12*(p.xpos+p.ypos*100));//TODO: width
         out << std::setfill('0') << std::setw(3) << rgb.r << " " 
             << std::setfill('0') << std::setw(3) << rgb.g << " " 
             << std::setfill('0') << std::setw(3) << rgb.b << "\n";
